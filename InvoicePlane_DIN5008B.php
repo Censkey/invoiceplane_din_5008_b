@@ -14,7 +14,8 @@ body {
 
 /* color of Invoice Heading fixed */
 .invoice-title {
-    color: #668100;
+    color: #008143;
+    font-size: 18px;
 }
 
 /* left space due to DIN 5008 2.5mm */
