@@ -208,11 +208,12 @@ table.item-table {
             <th class="item-name"><?php _trans('item'); ?></th>
             <th class="item-desc"><?php _trans('description'); ?></th>
             <th class="item-amount text-right"><?php _trans('qty'); ?></th>
-            <th class="item-price text-right"><?php _trans('price'); ?></th>
+            <th class="item-price text-right"><?php echo 'Einzelpreis'; ?></th>
+	    <th class="item-taxrate"><?php echo 'USt Satz'; ?></th>
             <?php if ($show_item_discounts) : ?>
                 <th class="item-discount text-right"><?php _trans('discount'); ?></th>
             <?php endif; ?>
-            <th class="item-total text-right"><?php _trans('total'); ?></th>
+            <th class="item-total text-right"><?php echo 'Nettosumme'; ?></th>
         </tr>
         </thead>
         <tbody>
@@ -232,13 +233,16 @@ table.item-table {
                 <td class="text-right">
                     <?php echo format_currency($item->item_price); ?>
                 </td>
+		<td class="text-right">
+                    <?php echo intval($item->item_tax_rate_percent).'%'; ?>
+                </td>
                 <?php if ($show_item_discounts) : ?>
                     <td class="text-right">
                         <?php echo format_currency($item->item_discount); ?>
                     </td>
                 <?php endif; ?>
                 <td class="text-right">
-                    <?php echo format_currency($item->item_total); ?>
+                    <?php echo format_currency(($item->item_total)-($item->item_tax_total)); ?>
                 </td>
             </tr>
         <?php } ?>
@@ -247,16 +251,16 @@ table.item-table {
         <tbody class="invoice-sums">
 
         <tr>
-            <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="4"'); ?> class="text-right">
-                <?php _trans('subtotal'); ?>
+            <td <?php echo($show_item_discounts ? 'colspan="6"' : 'colspan="5"'); ?> class="text-right">
+                <?php echo 'Nettosumme'; ?>
             </td>
             <td class="text-right"><?php echo format_currency($invoice->invoice_item_subtotal); ?></td>
         </tr>
 
         <?php if ($invoice->invoice_item_tax_total > 0) { ?>
             <tr>
-                <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="4"'); ?> class="text-right">
-                    <?php _trans('item_tax'); ?>
+                <td <?php echo($show_item_discounts ? 'colspan="6"' : 'colspan="5"'); ?> class="text-right">
+                    <?php echo 'USt'; ?>
                 </td>
                 <td class="text-right">
                     <?php echo format_currency($invoice->invoice_item_tax_total); ?>
@@ -266,7 +270,7 @@ table.item-table {
 
         <?php foreach ($invoice_tax_rates as $invoice_tax_rate) : ?>
             <tr>
-                <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="4"'); ?> class="text-right">
+                <td <?php echo($show_item_discounts ? 'colspan="6"' : 'colspan="5"'); ?> class="text-right">
                     <?php echo htmlsc($invoice_tax_rate->invoice_tax_rate_name) . ' (' . format_amount($invoice_tax_rate->invoice_tax_rate_percent) . '%)'; ?>
                 </td>
                 <td class="text-right">
@@ -277,7 +281,7 @@ table.item-table {
 
         <?php if ($invoice->invoice_discount_percent != '0.00') : ?>
             <tr>
-                <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="4"'); ?> class="text-right">
+                <td <?php echo($show_item_discounts ? 'colspan="6"' : 'colspan="5"'); ?> class="text-right">
                     <?php _trans('discount'); ?>
                 </td>
                 <td class="text-right">
@@ -287,7 +291,7 @@ table.item-table {
         <?php endif; ?>
         <?php if ($invoice->invoice_discount_amount != '0.00') : ?>
             <tr>
-                <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="4"'); ?> class="text-right">
+                <td <?php echo($show_item_discounts ? 'colspan="6"' : 'colspan="5"'); ?> class="text-right">
                     <?php _trans('discount'); ?>
                 </td>
                 <td class="text-right">
@@ -297,7 +301,7 @@ table.item-table {
         <?php endif; ?>
 
         <tr>
-            <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="4"'); ?> class="text-right">
+            <td <?php echo($show_item_discounts ? 'colspan="6"' : 'colspan="5"'); ?> class="text-right">
                 <b><?php _trans('total'); ?></b>
             </td>
             <td class="text-right">
@@ -305,7 +309,7 @@ table.item-table {
             </td>
         </tr>
         <tr>
-            <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="4"'); ?> class="text-right">
+            <td <?php echo($show_item_discounts ? 'colspan="6"' : 'colspan="5"'); ?> class="text-right">
                 <?php _trans('paid'); ?>
             </td>
             <td class="text-right">
@@ -313,7 +317,7 @@ table.item-table {
             </td>
         </tr>
         <tr>
-            <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="4"'); ?> class="text-right">
+            <td <?php echo($show_item_discounts ? 'colspan="6"' : 'colspan="5"'); ?> class="text-right">
                 <b><?php _trans('balance'); ?></b>
             </td>
             <td class="text-right">
