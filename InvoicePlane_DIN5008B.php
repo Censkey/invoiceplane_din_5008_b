@@ -332,7 +332,6 @@ table.item-table {
 <footer>
     <?php if ($invoice->invoice_terms) : ?>
         <div class="notes">
-            <b><?php _trans('terms'); ?></b><br/>
             <?php echo nl2br(htmlsc($invoice->invoice_terms)); ?>
         </div>
     <?php endif; ?>
