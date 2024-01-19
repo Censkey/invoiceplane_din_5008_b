@@ -38,7 +38,7 @@ table.item-table td {
 
 /* reduced font-size for items */
 table.item-table {
-  font-size: 11px !important;
+  font-size: 12px !important;
 }
 
 /* sender in sichtfenster */
@@ -227,7 +227,7 @@ table.item-table {
                     <?php echo format_amount($item->item_quantity); ?>
                     <?php if ($item->item_product_unit) : ?>
                         <br>
-                        <small><?php _htmlsc($item->item_product_unit); ?></small>
+                        <?php _htmlsc($item->item_product_unit); ?>
                     <?php endif; ?>
                 </td>
                 <td class="text-right">
