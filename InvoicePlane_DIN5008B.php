@@ -185,16 +185,16 @@ table.item-table {
             <td><?php echo trans('invoice_date') . ':'; ?></td>
             <td><?php echo date_from_mysql($invoice->invoice_date_created, true); ?></td>
         </tr>
+	            <?php if (!empty($custom_fields['invoice']['Bestellnummer'])): ?>
+            <tr>
+                <td><?php echo ('Bestellnummer') . ':'; ?></td>
+                <td><?php echo $custom_fields['invoice']['Bestellnummer']; ?></td>
+            </tr>
+        <?php endif; ?>
         <?php if (!empty($custom_fields['invoice']['Lieferscheinnummer'])): ?>
             <tr>
                 <td><?php echo ('Lieferscheinnummer') . ':'; ?></td>
                 <td><?php echo $custom_fields['invoice']['Lieferscheinnummer']; ?></td>
-            </tr>
-        <?php endif; ?>
-        <?php if (!empty($custom_fields['invoice']['Bestellnummer'])): ?>
-            <tr>
-                <td><?php echo ('Bestellnummer') . ':'; ?></td>
-                <td><?php echo $custom_fields['invoice']['Bestellnummer']; ?></td>
             </tr>
         <?php endif; ?>
     </table>
