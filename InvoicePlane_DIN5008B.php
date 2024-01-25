@@ -179,28 +179,26 @@ table.item-table {
 
 <main>
 
-    <div class="invoice-details clearfix">
-        <table>
+<div class="invoice-details clearfix">
+    <table>
+        <tr>
+            <td><?php echo trans('invoice_date') . ':'; ?></td>
+            <td><?php echo date_from_mysql($invoice->invoice_date_created, true); ?></td>
+        </tr>
+        <?php if (!empty($custom_fields['invoice']['Lieferscheinnummer'])): ?>
             <tr>
-                <td><?php echo trans('invoice_date') . ':'; ?></td>
-                <td><?php echo date_from_mysql($invoice->invoice_date_created, true); ?></td>
+                <td><?php echo ('Lieferscheinnummer') . ':'; ?></td>
+                <td><?php echo $custom_fields['invoice']['Lieferscheinnummer']; ?></td>
             </tr>
+        <?php endif; ?>
+        <?php if (!empty($custom_fields['invoice']['Bestellnummer'])): ?>
             <tr>
-                <td><?php echo trans('due_date') . ': '; ?></td>
-                <td><?php echo date_from_mysql($invoice->invoice_date_due, true); ?></td>
+                <td><?php echo ('Bestellnummer') . ':'; ?></td>
+                <td><?php echo $custom_fields['invoice']['Bestellnummer']; ?></td>
             </tr>
-            <tr>
-                <td><?php echo trans('amount_due') . ': '; ?></td>
-                <td><?php echo format_currency($invoice->invoice_balance); ?></td>
-            </tr>
-            <?php if ($payment_method): ?>
-                <tr>
-                    <td><?php echo trans('payment_method') . ': '; ?></td>
-                    <td><?php _htmlsc($payment_method->payment_method_name); ?></td>
-                </tr>
-            <?php endif; ?>
-        </table>
-    </div>
+        <?php endif; ?>
+    </table>
+</div>
 
     <h1 class="invoice-title"><?php echo trans('invoice') . ' ' . $invoice->invoice_number; ?></h1>
 
