@@ -87,12 +87,7 @@ table.item-table {
 	<div>
 		<b><?php _htmlsc(format_client($invoice)); ?></b>
 	</div>
-	<?php if ($invoice->client_vat_id) {
-		echo '<div>' . trans('vat_id_short') . ': ' . $invoice->client_vat_id . '</div>';
-	}
-	if ($invoice->client_tax_code) {
-		echo '<div>' . trans('tax_code_short') . ': ' . $invoice->client_tax_code . '</div>';
-	}
+	<?php 
 	if ($invoice->client_address_1) {
 		echo '<div>' . htmlsc($invoice->client_address_1) . '</div>';
 	}
@@ -120,7 +115,14 @@ table.item-table {
 
 	if ($invoice->client_phone) {
 		echo '<div>' . trans('phone_abbr') . ': ' . htmlsc($invoice->client_phone) . '</div>';
-	} ?>
+	} 
+	if ($invoice->client_vat_id) {
+		echo '<div>' . trans('vat_id_short') . ': ' . $invoice->client_vat_id . '</div>';
+	}
+	if ($invoice->client_tax_code) {
+		echo '<div>' . trans('tax_code_short') . ': ' . $invoice->client_tax_code . '</div>';
+	}	
+	?>
 </div>
 
 <header class="clearfix">
