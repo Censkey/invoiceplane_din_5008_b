@@ -38,7 +38,7 @@ table.item-table td {
 
 /* reduced font-size for items */
 table.item-table {
-  font-size: 11px !important;
+  font-size: 12px !important;
 }
 
 /* sender in sichtfenster */
@@ -133,12 +133,7 @@ table.item-table {
 
     <div id="company">
         <div><b><?php _htmlsc($quote->user_name); ?></b></div>
-        <?php if ($quote->user_vat_id) {
-            echo '<div>' . trans('vat_id_short') . ': ' . $quote->user_vat_id . '</div>';
-        }
-        if ($quote->user_tax_code) {
-            echo '<div>' . trans('tax_code_short') . ': ' . $quote->user_tax_code . '</div>';
-        }
+        <?php 
         if ($quote->user_address_1) {
             echo '<div>' . htmlsc($quote->user_address_1) . '</div>';
         }
@@ -169,6 +164,12 @@ table.item-table {
         }
         if ($quote->user_fax) {
             echo '<div>' . trans('fax_abbr') . ': ' . htmlsc($quote->user_fax) . '</div>';
+        }
+	if ($quote->user_vat_id) {
+            echo '<div>' . trans('vat_id_short') . ': ' . $quote->user_vat_id . '</div>';
+        }
+        if ($quote->user_tax_code) {
+            echo '<div>' . trans('tax_code_short') . ': ' . $quote->user_tax_code . '</div>';
         }
         ?>
     </div>
@@ -207,7 +208,7 @@ table.item-table {
                     <?php echo format_amount($item->item_quantity); ?>
                     <?php if ($item->item_product_unit) : ?>
                         <br>
-                        <small><?php _htmlsc($item->item_product_unit); ?></small>
+                        <?php _htmlsc($item->item_product_unit); ?>
                     <?php endif; ?>
                 </td>
             </tr>
@@ -222,7 +223,7 @@ table.item-table {
 <footer>
     <?php if ($quote->notes) : ?>
         <div class="notes">
-            <b><?php _trans('notes'); ?></b><br/>
+           
             <?php echo nl2br(htmlsc($quote->notes)); ?>
         </div>
     <?php endif; ?>
