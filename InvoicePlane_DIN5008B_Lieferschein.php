@@ -87,12 +87,7 @@ table.item-table {
 	<div>
 		<b><?php _htmlsc(format_client($quote)); ?></b>
 	</div>
-	<?php if ($quote->client_vat_id) {
-		echo '<div>' . trans('vat_id_short') . ': ' . $quote->client_vat_id . '</div>';
-	}
-	if ($quote->client_tax_code) {
-		echo '<div>' . trans('tax_code_short') . ': ' . $quote->client_tax_code . '</div>';
-	}
+	<?php 
 	if ($quote->client_address_1) {
 		echo '<div>' . htmlsc($quote->client_address_1) . '</div>';
 	}
@@ -120,6 +115,12 @@ table.item-table {
 
 	if ($quote->client_phone) {
 		echo '<div>' . trans('phone_abbr') . ': ' . htmlsc($quote->client_phone) . '</div>';
+	if ($quote->client_vat_id) {
+		echo '<div>' . trans('vat_id_short') . ': ' . $quote->client_vat_id . '</div>';
+	}
+	if ($quote->client_tax_code) {
+		echo '<div>' . trans('tax_code_short') . ': ' . $quote->client_tax_code . '</div>';
+	}
 	} ?>
 </div>
 
@@ -184,6 +185,18 @@ table.item-table {
                 <td><?php echo trans('quote_date') . ':'; ?></td>
                 <td><?php echo date_from_mysql($quote->quote_date_created, true); ?></td>
             </tr>
+		 <?php if (!empty($custom_fields['quote']['Bestellnummer'])): ?>
+            <tr>
+                <td><?php echo ('Bestellnummer') . ':'; ?></td>
+                <td><?php echo $custom_fields['quote']['Bestellnummer']; ?></td>
+            </tr>
+        <?php endif; ?>
+        <?php if (!empty($custom_fields['quote']['Lieferscheinnummer'])): ?>
+            <tr>
+                <td><?php echo ('Lieferscheinnummer') . ':'; ?></td>
+                <td><?php echo $custom_fields['quote']['Lieferscheinnummer']; ?></td>
+            </tr>
+        <?php endif; ?>
         </table>
     </div>
 
