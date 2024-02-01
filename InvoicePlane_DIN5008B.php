@@ -308,22 +308,6 @@ table.item-table {
                 <b><?php echo format_currency($invoice->invoice_total); ?></b>
             </td>
         </tr>
-        <tr>
-            <td <?php echo($show_item_discounts ? 'colspan="6"' : 'colspan="5"'); ?> class="text-right">
-                <?php _trans('paid'); ?>
-            </td>
-            <td class="text-right">
-                <?php echo format_currency($invoice->invoice_paid); ?>
-            </td>
-        </tr>
-        <tr>
-            <td <?php echo($show_item_discounts ? 'colspan="6"' : 'colspan="5"'); ?> class="text-right">
-                <b><?php _trans('balance'); ?></b>
-            </td>
-            <td class="text-right">
-                <b><?php echo format_currency($invoice->invoice_balance); ?></b>
-            </td>
-        </tr>
         </tbody>
     </table>
 
