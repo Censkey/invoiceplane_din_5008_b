@@ -257,16 +257,49 @@ table.item-table {
             <td class="text-right"><?php echo format_currency($invoice->invoice_item_subtotal); ?></td>
         </tr>
 
-        <?php if ($invoice->invoice_item_tax_total > 0) { ?>
-            <tr>
-                <td <?php echo($show_item_discounts ? 'colspan="6"' : 'colspan="5"'); ?> class="text-right">
-                    <?php echo 'USt'; ?>
+         <?php
+        $taxarray2 = array();
+        $linecounter = 0;
+        foreach ($items as $item) { ?>
+        <?php
+                      // load all tax_rates/mdl_tax_rates and calc subtotal per rate
+                      //$this->load->model('tax_rates/mdl_tax_rates');
+                      //$taxarray1 = $this->mdl_tax_rates->where('tax_rate_id', $item->item_tax_rate_id)->get()->row();                                 
+                      //$taxarray2[$item->item_tax_rate_id]->taxcode = $taxarray1->tax_rate_code;
+                      if (!isset($taxarray2[$item->item_tax_rate_id]))
+                            $taxarray2[$item->item_tax_rate_id]=array();
+                      $taxarray2[$item->item_tax_rate_id]['taxdescr'] = $item->item_tax_rate_name;
+                      $taxarray2[$item->item_tax_rate_id]['taxperc'] = $item->item_tax_rate_percent;
+                      if (isset($taxarray2[$item->item_tax_rate_id]['netamount']))
+                            $taxarray2[$item->item_tax_rate_id]['netamount'] += ($item->item_subtotal - $item->item_discount);
+                      else
+                            $taxarray2[$item->item_tax_rate_id]['netamount'] = ($item->item_subtotal - $item->item_discount);
+                      if (isset($taxarray2[$item->item_tax_rate_id]['taxamount'])) 
+                            $taxarray2[$item->item_tax_rate_id]['taxamount'] += $item->item_tax_total;
+                      else
+                            $taxarray2[$item->item_tax_rate_id]['taxamount'] = $item->item_tax_total;
+                ?>
+        <?php } ?>
+
+        <?php if ($invoice->invoice_item_tax_total > 0) {
+            foreach($taxarray2 as $key => $value) :?>
+                <tr>
+                    <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="4"'); ?> class="text-right"></td>
+                    <td class="text-right"><?php echo 'USt '. intval(format_amount($value['taxperc'])).'%'; ?></>
+                    </td>
+                    <td class="text-right"><?php echo format_currency($value['taxamount']); ?></td>
+                </tr>
+        <?php endforeach ?>
+        <!--<tr> Steuer Summe
+                <td class="text-right"></td>
+                <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="4"'); ?> class="text-right">
+                    <?php _trans('item_tax'); ?>
                 </td>
                 <td class="text-right">
-                    <?php echo format_currency($invoice->invoice_item_tax_total); ?>
+                    <?php echo format_currency($invoice->invoice_item_tax_total);?>
                 </td>
-            </tr>
-        <?php } ?>
+            </tr>-->
+       <?php } ?>
 
         <?php foreach ($invoice_tax_rates as $invoice_tax_rate) : ?>
             <tr>
