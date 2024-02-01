@@ -68,6 +68,21 @@ table.item-table {
     left: 5mm;
     width: 5mm;
 }
+#signature-area {
+    position: absolute;
+    bottom: 20mm; /* Abstand vom unteren Rand */
+    right: 20mm; /* Abstand vom rechten Rand */
+    width: 100mm; /* Breite des Unterschriftenfeldes */
+}
+
+#signature-content {
+    text-align: center; /* Zentriert den Inhalt */
+}
+
+#signature-line {
+    border-top: 1px solid #000; /* Zeichnet eine Linie für die Unterschrift */
+    margin: 10px 0; /* Abstand oben und unten */
+}
     </style>
 </head>
 
@@ -232,7 +247,13 @@ table.item-table {
     </table>
 
 </main>
-
+<div id="signature-area">
+    <div id="signature-content">
+        <p>Unterschrift Warenempfänger:</p>
+        <div id="signature-line"></div>
+        <p>(Name und Datum)</p>
+    </div>
+</div>
 <footer>
     <?php if ($quote->notes) : ?>
         <div class="notes">
